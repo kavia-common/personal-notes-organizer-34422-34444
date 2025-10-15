@@ -1,3 +1,23 @@
-<div class="container">
-  <h1>{{ title }}</h1>
+<div class="app-shell">
+  <app-sidebar [brand]="title"></app-sidebar>
+
+  <main class="content">
+    <section class="left-pane">
+      <app-notes-list (delete)="requestDelete($event)"></app-notes-list>
+    </section>
+    <section class="right-pane">
+      <router-outlet></router-outlet>
+    </section>
+    <button class="fab" type="button" title="Add note" (click)="addNote()">+</button>
+  </main>
 </div>
+
+<app-confirm-dialog
+  [open]="showDeleteDialog()"
+  title="Delete note"
+  message="Are you sure you want to delete this note? This action cannot be undone."
+  confirmText="Delete"
+  cancelText="Cancel"
+  (confirmed)="confirmDelete()"
+  (cancelled)="cancelDelete()"
+/>

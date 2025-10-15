@@ -1,0 +1,27 @@
+<section class="notes-list">
+  <div class="list-header">
+    <h2>Notes</h2>
+    <span class="count">{{ notes().length }}</span>
+  </div>
+
+  <div class="empty" *ngIf="notes().length === 0">
+    <p>No notes yet. Click the + button to create your first note.</p>
+  </div>
+
+  <ul class="items" *ngIf="notes().length > 0">
+    <li
+      *ngFor="let note of notes(); trackBy: trackById"
+      [class.selected]="note.id === selectedId()"
+      (click)="select(note)"
+      class="item"
+      [routerLink]="['/notes', note.id]"
+    >
+      <div class="title" [title]="note.title">{{ note.title || 'Untitled note' }}</div>
+      <div class="meta">
+        <span>Updated</span>
+        <time>{{ note.updatedAt | date:'medium' }}</time>
+      </div>
+      <button type="button" class="delete" (click)="$event.stopPropagation(); onDelete(note)">Delete</button>
+    </li>
+  </ul>
+</section>

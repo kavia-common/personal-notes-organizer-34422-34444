@@ -1,0 +1,29 @@
+<div class="editor" *ngIf="note(); else welcome">
+  <div class="toolbar">
+    <a routerLink="/notes" class="back">← Back</a>
+    <div class="status" [class.saved]="saved()">● {{ saved() ? 'Saved' : 'Saving...' }}</div>
+    <button type="button" class="danger" (click)="deleteCurrent()">Delete</button>
+  </div>
+
+  <div class="fields">
+    <input
+      class="title"
+      type="text"
+      placeholder="Note title"
+      [(ngModel)]="title"
+    />
+    <textarea
+      class="content"
+      rows="16"
+      placeholder="Write your note..."
+      [(ngModel)]="content"
+    ></textarea>
+  </div>
+</div>
+
+<ng-template #welcome>
+  <div class="welcome">
+    <h2>Welcome to your Notes</h2>
+    <p>Select a note from the list or create a new one using the + button.</p>
+  </div>
+</ng-template>
